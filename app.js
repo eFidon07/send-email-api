@@ -10,7 +10,7 @@ const port = process.env.port || 9002;
 const allowedOrigins = ["https://you-vote.vercel.app/"];
 
 // Use CORS middleware
-/* app.use(
+app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (like mobile apps or curl requests)
@@ -23,7 +23,7 @@ const allowedOrigins = ["https://you-vote.vercel.app/"];
     methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
     credentials: true, // Enable cookies for cross-origin requests
   })
-);*/
+);
 
 app.options('*', cors());
 app.use(logger("combined"));
@@ -74,5 +74,12 @@ app.post("/api/v1/mail/send", (req, res) => {
     .status(200)
     .json({ status: "success", message: "Email sent successfully" });
 });
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!'); // Generic error response
+});
+
 
 app.listen(port, () => console.log(`Server running on port ${port}...`));
