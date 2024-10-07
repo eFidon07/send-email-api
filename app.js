@@ -7,7 +7,7 @@ import nodemailer from "nodemailer";
 dotenv.config();
 const app = express();
 const port = process.env.port || 9002;
-const allowedOrigins = ["https://you-vote.vercel.app/"];
+const allowedOrigins = ["https://you-vote.vercel.app/*"];
 
 // Use CORS middleware
 app.use(
@@ -20,12 +20,13 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
     credentials: true, // Enable cookies for cross-origin requests
+    optionsSuccessStatus: 200,
   })
 );
 
-app.options('*', cors());
+app.options("*", cors());
 app.use(logger("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -78,8 +79,7 @@ app.post("/api/v1/mail/send", (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!'); // Generic error response
+  res.status(500).send("Something broke!"); // Generic error response
 });
-
 
 app.listen(port, () => console.log(`Server running on port ${port}...`));
