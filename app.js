@@ -7,26 +7,24 @@ import nodemailer from "nodemailer";
 dotenv.config();
 const app = express();
 const port = process.env.port || 9002;
-const allowedOrigins = ["https://you-vote.vercel.app/*"];
 
 // Use CORS middleware
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
-    credentials: true, // Enable cookies for cross-origin requests
-    optionsSuccessStatus: 200,
-  })
-);
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       // Allow requests with no origin (like mobile apps or curl requests)
+//       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true, // Enable cookies for cross-origin requests
+//     optionsSuccessStatus: 200,
+//   })
+// );
 
-app.options("*", cors());
+app.use(cors());
 app.use(logger("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
