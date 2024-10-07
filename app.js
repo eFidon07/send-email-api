@@ -10,7 +10,7 @@ const port = process.env.port || 9002;
 const allowedOrigins = ["https://you-vote.vercel.app/"];
 
 // Use CORS middleware
-app.use(
+/* app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (like mobile apps or curl requests)
@@ -23,7 +23,9 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
     credentials: true, // Enable cookies for cross-origin requests
   })
-);
+);*/
+
+app.options('*', cors());
 app.use(logger("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
