@@ -62,6 +62,8 @@ app.post("/api/v1/mail/send", (req, res) => {
     html: html + "<br/><p>Thanks for using this service by CoderX_001</p>",
   };
 
+  console.log(mailOptions);
+
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       return console.log("An error occurred: ", err);
