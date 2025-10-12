@@ -44,9 +44,10 @@ app.post("/api/v1/mail/send", (req, res) => {
   if (!mailFrom || !mailTo || !subject || !text || !html || !sentFrom);
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
+    // host: "smtp.gmail.com",
+    // port: 465,
+    // secure: true,
+    service: "gmail",
     auth: {
       user: mailAuthentication?.email,
       pass: mailAuthentication?.pass,
