@@ -41,6 +41,8 @@ app.post("/api/v1/mail/send", (req, res) => {
     sentFrom,
   } = req.body;
 
+console.log(req.body);
+
   if (!mailFrom || !mailTo || !subject || !text || !html || !sentFrom);
 
   const transporter = nodemailer.createTransport({
@@ -70,11 +72,11 @@ app.post("/api/v1/mail/send", (req, res) => {
     }
 
     console.log("Email sent successfully: ", info.response);
-  });
 
-  return res
+return res
     .status(200)
     .json({ status: "success", message: "Email sent successfully" });
+  });
 });
 
 // Error handling middleware
